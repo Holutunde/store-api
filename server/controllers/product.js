@@ -1,9 +1,12 @@
-const getAllProductsStatic = (req, res) => {
-  res.send('connected')
+const Product = require('../models/productSchema')
+
+const getAllProducts = async (req, res) => {
+  const products = await Product.find({}).sort('price')
+  res.status(200).json({ products, nbHits: products.length })
 }
-const getAllProducts = (req, res) => {}
+const getAllQuery = (req, res) => {}
 
 module.exports = {
   getAllProducts,
-  getAllProductsStatic,
+  getAllQuery,
 }
