@@ -1,7 +1,12 @@
 const Product = require('../models/productSchema')
 
 const getAllProducts = async (req, res) => {
-  const products = await Product.find({}).sort('-name price')
+  const products = await Product.find({})
+    .sort('-name price')
+    .select('name price')
+    .limit(10)
+    .skip(3)
+
   res.status(200).json({ products, nbHits: products.length })
 }
 const getAllQuery = async (req, res) => {
@@ -27,6 +32,7 @@ const getAllQuery = async (req, res) => {
     result = result.sort('createdAt')
   }
 
+  // fields
   if (fields) {
     const fieldsList = fields.split(',').join(' ')
     result = result.select(fieldsList)
