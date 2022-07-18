@@ -38,6 +38,15 @@ const getAllQuery = async (req, res) => {
     result = result.select(fieldsList)
   }
 
+  const page = Number(req.query.page)
+  const limit = Number(req.query.limit)
+  const skip = (page - 1) * limit
+  console.log(page, limit)
+
+  result = result.skip(skip).limit(limit)
+  //we have 23 limit to 7 we have 4 pages
+  // 4 7 7 7 2
+
   const products = await result
   res.status(200).json({ products, nbHits: products.length })
 }
