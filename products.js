@@ -130,4 +130,4 @@ const products =[
   }
 ]
 
-module.exports = products
+modules.export = products

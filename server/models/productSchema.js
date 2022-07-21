@@ -4,6 +4,7 @@ const productSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'product name must be provided'],
+  
   },
   price: {
     type: Number,
@@ -26,7 +27,9 @@ const productSchema = new mongoose.Schema({
     enum: {
       values: ['ikea', 'liddy', 'caressa', 'marcos'],
       message: '{VALUE} is not supported',
+      
     },
+    maxlength: [8, 'company can not be more than 8 characters']
     // enum: ['ikea', 'liddy', 'caressa', 'marcos'],
   },
 })

@@ -3,7 +3,7 @@ const Product = require('../models/productSchema')
 const getAllProducts = async (req, res) => {
   const products = await Product.find({})
     .sort('-name price')
-    .select('name price')
+   // .select('name price')
     .limit(10)
     .skip(3)
 
@@ -23,7 +23,7 @@ const getAllQuery = async (req, res) => {
     queryObject.name = { $regex: name, $options: 'i' }
   }
 
-  let result = Product.find(queryObject)
+  const result = Product.find(queryObject)
   // sort
   if (sort) {
     const sortList = sort.split(',').join(' ')
@@ -41,11 +41,8 @@ const getAllQuery = async (req, res) => {
   const page = Number(req.query.page)
   const limit = Number(req.query.limit)
   const skip = (page - 1) * limit
-  console.log(page, limit)
 
   result = result.skip(skip).limit(limit)
-  //we have 23 limit to 7 we have 4 pages
-  // 4 7 7 7 2
 
   const products = await result
   res.status(200).json({ products, nbHits: products.length })
